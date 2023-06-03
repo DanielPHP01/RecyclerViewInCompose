@@ -1,4 +1,4 @@
-package com.example.recyclerviewincompose.data
+package com.example.recyclerviewincompose.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

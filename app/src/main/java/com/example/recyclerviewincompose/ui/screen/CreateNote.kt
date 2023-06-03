@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.recyclerviewincompose.data.Note
+import com.example.recyclerviewincompose.data.model.Note
 import com.example.recyclerviewincompose.data.room.NoteDatabase
 import com.example.recyclerviewincompose.ui.theme.TextFieldColorPlaceHolder
 

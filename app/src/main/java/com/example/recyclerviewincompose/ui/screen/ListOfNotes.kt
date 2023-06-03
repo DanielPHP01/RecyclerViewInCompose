@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.recyclerviewincompose.data.Note
+import com.example.recyclerviewincompose.data.model.Note
 import androidx.compose.runtime.remember
 import com.example.recyclerviewincompose.data.room.NoteDatabase
 
@@ -25,7 +25,7 @@ fun ListOfNotesScreen(database: NoteDatabase) {
     }
 }
 @Composable
-fun NoteItem(item:Note) {
+fun NoteItem(item: Note) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Text(text = item.title, fontSize = 20.sp, fontWeight = FontWeight.Bold)
         Text(text = item.desc, fontSize = 20.sp, fontWeight = FontWeight.Bold)
