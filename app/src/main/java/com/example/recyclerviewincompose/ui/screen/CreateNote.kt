@@ -21,15 +21,12 @@ import androidx.compose.ui.unit.dp
 import com.example.recyclerviewincompose.data.Note
 import com.example.recyclerviewincompose.data.room.NoteDatabase
 import com.example.recyclerviewincompose.ui.theme.TextFieldColorPlaceHolder
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateNoteScreen(
     navigationListOfNote: () -> Unit,
-    database: NoteDatabase
+    db: NoteDatabase
 ) {
 
     var titleText by remember {
@@ -40,9 +37,8 @@ fun CreateNoteScreen(
     }
 
     val onNoteSaved: () -> Unit = {
-
-            database.noteDao().insert(Note(title = titleText, desc = descText))
-            navigationListOfNote.invoke()
+        db.noteDao().insert(Note(title = titleText, desc = descText))
+        navigationListOfNote.invoke()
     }
 
     Column(
@@ -78,9 +74,8 @@ fun CreateNoteScreen(
                 .fillMaxWidth()
                 .padding(top = 10.dp),
         )
-        Button(onClick = {onNoteSaved.invoke()}) {
-
+        Button(onClick = { onNoteSaved.invoke() }) {
+            Text(text = "Save Note")
         }
     }
 }
-

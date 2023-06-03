@@ -11,17 +11,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.recyclerviewincompose.data.Note
+import androidx.compose.runtime.remember
+import com.example.recyclerviewincompose.data.room.NoteDatabase
 
 @Composable
-fun ListOfNotesScreen(data: ArrayList<Note> = arrayListOf<Note>()) {
+fun ListOfNotesScreen(database: NoteDatabase) {
+    val notes = remember { database.noteDao().getAllNotes() }
 
     LazyColumn() {
-        items(data) {
+        items(notes) {
             NoteItem(item = it)
         }
     }
 }
-
 @Composable
 fun NoteItem(item:Note) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {

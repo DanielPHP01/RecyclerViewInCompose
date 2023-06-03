@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
-import com.example.recyclerviewincompose.data.Note
 import com.example.recyclerviewincompose.data.room.NoteDatabase
 import com.example.recyclerviewincompose.objects.ScreenConstants
 import com.example.recyclerviewincompose.ui.screen.CreateNoteScreen
@@ -17,16 +16,9 @@ fun Navigation() {
     val navController = rememberNavController()
 
     val context = LocalContext.current
-    val db = Room.databaseBuilder(context, NoteDatabase::class.java, "notes-db").build()
-
-
-    val data = mutableListOf<Note>()
-
-   val onNoteSaved: (Note) -> Unit = {
-        val newNote = Note(it.title, it.desc)
-        data.add(newNote)
-       navController.navigate(ScreenConstants.ListOfNoteScreen.route)
-    }
+    val db =
+        Room.databaseBuilder(context, NoteDatabase::class.java, "notes-db").allowMainThreadQueries()
+            .build()
 
 
     NavHost(
@@ -34,10 +26,13 @@ fun Navigation() {
         startDestination = ScreenConstants.CreateNoteScreen.route
     ) {
         composable(ScreenConstants.CreateNoteScreen.route) {
-            CreateNoteScreen(onSaveNote = onNoteSaved)
+            CreateNoteScreen(
+                navigationListOfNote = { navController.navigate(ScreenConstants.ListOfNoteScreen.route) },
+                db = db
+            )
         }
         composable(ScreenConstants.ListOfNoteScreen.route) {
-            ListOfNotesScreen(data = data as ArrayList<Note>)
+            ListOfNotesScreen(database = db)
         }
     }
 }
