@@ -1,5 +1,3 @@
-package com.example.recyclerviewincompose.ui.screen
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,26 +16,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.recyclerviewincompose.data.model.Note
-import com.example.recyclerviewincompose.data.room.NoteDatabase
-import com.example.recyclerviewincompose.ui.theme.TextFieldColorPlaceHolder
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.recyclerviewincompose.domain.model.NoteDomain
+import com.example.recyclerviewincompose.presentation.ui.screen.createnote.CreateNoteViewModel
+import com.example.recyclerviewincompose.presentation.ui.theme.TextFieldColorPlaceHolder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateNoteScreen(
     navigationListOfNote: () -> Unit,
-    db: NoteDatabase
 ) {
-
-    var titleText by remember {
-        mutableStateOf("")
-    }
-    var descText by remember {
-        mutableStateOf("")
-    }
+    val viewModel: CreateNoteViewModel = viewModel()
+    var titleText by remember { mutableStateOf("") }
+    var descText by remember { mutableStateOf("") }
 
     val onNoteSaved: () -> Unit = {
-        db.noteDao().insert(Note(title = titleText, desc = descText))
+        val note = NoteDomain(title = titleText, desc = descText)
+        viewModel.createNote(note)
         navigationListOfNote.invoke()
     }
 
@@ -75,7 +70,8 @@ fun CreateNoteScreen(
                 .padding(top = 10.dp),
         )
         Button(onClick = { onNoteSaved.invoke() }) {
-            Text(text = "Save Note")
+
+
         }
     }
 }

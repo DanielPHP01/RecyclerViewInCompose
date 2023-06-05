@@ -1,4 +1,4 @@
-package com.example.recyclerviewincompose.ui.theme
+package com.example.recyclerviewincompose.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
