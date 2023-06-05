@@ -10,14 +10,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.recyclerviewincompose.data.utils.UIState
 import com.example.recyclerviewincompose.domain.model.NoteDomain
 import com.example.recyclerviewincompose.presentation.ui.theme.RecyclerViewInComposeTheme
 import com.example.recyclerviewincompose.presentation.ui.screen.listofnotes.GetAllNoteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
-fun ListOfNotesScreen(viewModel: GetAllNoteViewModel = viewModel()) {
+fun ListOfNotesScreen() {
+    val viewModel: GetAllNoteViewModel = hiltViewModel()
     val getAllNoteState by viewModel.getAllNoteState.collectAsState()
+
 
     RecyclerViewInComposeTheme {
         when (val state = getAllNoteState) {
@@ -26,6 +30,7 @@ fun ListOfNotesScreen(viewModel: GetAllNoteViewModel = viewModel()) {
             }
             is UIState.Success -> {
                 LazyColumn(modifier = Modifier.padding(16.dp)) {
+                    viewModel.getAllNotes()
                     items(state.data) { note ->
                         NoteItem(item = note)
                     }

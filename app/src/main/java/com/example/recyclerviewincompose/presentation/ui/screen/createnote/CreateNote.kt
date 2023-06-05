@@ -16,7 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.recyclerviewincompose.domain.model.NoteDomain
 import com.example.recyclerviewincompose.presentation.ui.screen.createnote.CreateNoteViewModel
 import com.example.recyclerviewincompose.presentation.ui.theme.TextFieldColorPlaceHolder
@@ -26,7 +26,7 @@ import com.example.recyclerviewincompose.presentation.ui.theme.TextFieldColorPla
 fun CreateNoteScreen(
     navigationListOfNote: () -> Unit,
 ) {
-    val viewModel: CreateNoteViewModel = viewModel()
+    val viewModel: CreateNoteViewModel = hiltViewModel()
     var titleText by remember { mutableStateOf("") }
     var descText by remember { mutableStateOf("") }
 

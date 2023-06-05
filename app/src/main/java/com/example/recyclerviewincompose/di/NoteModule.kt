@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.recyclerviewincompose.data.local.room.NoteDao
 import com.example.recyclerviewincompose.data.local.room.NoteDatabase
 import com.example.recyclerviewincompose.data.repositories.NoteRepositoryImpl
+import com.example.recyclerviewincompose.domain.repositories.NoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +31,8 @@ object NoteModule {
     fun provideNoteDao(noteDatabase: NoteDatabase) = noteDatabase.noteDao()
 
     @Provides
-    fun provideNoteRepository(noteDao: NoteDao): NoteRepositoryImpl {
+    @Singleton
+    fun provideNoteRepository(noteDao: NoteDao): NoteRepository {
         return NoteRepositoryImpl(noteDao)
     }
 }

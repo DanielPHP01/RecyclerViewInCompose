@@ -16,4 +16,8 @@ class GetAllNoteViewModel @Inject constructor(
 
     private val _getAllNotesUseCase = MutableStateFlow<UIState<List<NoteDomain>>>(UIState.Empty)
     val getAllNoteState = _getAllNotesUseCase.asStateFlow()
+
+    fun getAllNotes() {
+        getAllNoteUseCase.getAllNotes().collectFlow(_getAllNotesUseCase)
+    }
 }
