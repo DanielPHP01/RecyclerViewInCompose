@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetAllNoteUseCase @Inject constructor(
     private val noteRepository: NoteRepository
-){
-    fun getAllNotes()= noteRepository.getAllNotes()
+) {
+    fun getAllNotes() = noteRepository.getAllNotes()
 }

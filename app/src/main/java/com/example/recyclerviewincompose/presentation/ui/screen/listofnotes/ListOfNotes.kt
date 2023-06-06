@@ -6,7 +6,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -15,7 +14,6 @@ import com.example.recyclerviewincompose.data.utils.UIState
 import com.example.recyclerviewincompose.domain.model.NoteDomain
 import com.example.recyclerviewincompose.presentation.ui.theme.RecyclerViewInComposeTheme
 import com.example.recyclerviewincompose.presentation.ui.screen.listofnotes.GetAllNoteViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun ListOfNotesScreen() {
@@ -24,13 +22,13 @@ fun ListOfNotesScreen() {
 
 
     RecyclerViewInComposeTheme {
+        viewModel.getAllNotes()
         when (val state = getAllNoteState) {
             is UIState.Loading -> {
                 Text(text = "Loading...")
             }
             is UIState.Success -> {
                 LazyColumn(modifier = Modifier.padding(16.dp)) {
-                    viewModel.getAllNotes()
                     items(state.data) { note ->
                         NoteItem(item = note)
                     }
